@@ -1,3 +1,4 @@
+#include <QList>
 #include "componente.h"
 #ifndef DATABASEMANAGER_H
 #define DATABASEMANAGER_H
@@ -17,6 +18,8 @@ public:
     bool conectar();
     bool crearTablaComponentes();
     bool insertarComponente(const Componente &componente);
+
+    QList<Componente> obtenerComponentes();
 };
 
 #endif // DATABASEMANAGER_H

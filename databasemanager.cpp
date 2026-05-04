@@ -70,3 +70,27 @@ bool DatabaseManager::insertarComponente(const Componente &componente)
     qDebug() << "Componente insertado correctamente.";
     return true;
 }
+
+QList<Componente> DatabaseManager::obtenerComponentes()
+{
+    QList<Componente> lista;
+    QSqlQuery query("SELECT * FROM componentes");
+
+    while (query.next())
+    {
+        int id = query.value("id").toInt();
+        QString nombre = query.value("nombre").toString();
+        QString categoria = query.value("categoria").toString();
+        int cantidad = query.value("cantidad").toInt();
+        QString ubicacion = query.value("ubicacion").toString();
+        QString valor = query.value("valor").toString();
+        QString proveedor = query.value("proveedor").toString();
+        int stockMinimo = query.value("stock_minimo").toInt();
+
+        Componente c(id, nombre, categoria, cantidad, ubicacion, valor, proveedor, stockMinimo);
+        lista.append(c);
+    }
+
+    qDebug() << "Componentes leídos:" << lista.size();
+    return lista;
+}
