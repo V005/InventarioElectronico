@@ -12,7 +12,11 @@ int main(int argc, char *argv[])
     if (db.conectar())
     {
         db.crearTablaComponentes();
+
+        Componente c1(0, "Resistencia", "Resistencia", 50, "Caja A1", "220 ohm", "Steren", 10);
+        db.insertarComponente(c1);
     }
+
 
     MainWindow w;
     w.show();
