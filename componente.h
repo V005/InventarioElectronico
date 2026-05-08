@@ -3,6 +3,14 @@
 
 #include <QString>
 
+
+/**
+ * @brief Clase que representa un componente electrónico.
+ *
+ * Almacena la información de cada componente
+ * del inventario.
+ */
+
 class Componente
 {
 private:
@@ -45,6 +53,9 @@ public:
     void setProveedor(const QString &proveedor);
     void setStockMinimo(int stockMinimo);
 
+    /**
+     * @brief Verifica si la cantidad actual está por debajo o igual al stock mínimo.
+     */
     bool tieneStockBajo() const;
 };
 

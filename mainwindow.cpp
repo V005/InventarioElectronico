@@ -2,7 +2,12 @@
 #include "ui_mainwindow.h"
 #include "databasemanager.h"
 #include "componente.h"
-#include <QHeaderView>
+#include <QHeaderView> //tabla
+
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QMessageBox> //Excel
 
 #include <QTableWidgetItem>
 
@@ -190,4 +195,53 @@ void MainWindow::on_inputBuscar_textChanged(const QString &texto)
 
         ui->tableWidget->setRowHidden(fila, !coincide);
     }
+}
+
+void MainWindow::on_btnExportarCSV_clicked()
+{
+    QString rutaArchivo = QFileDialog::getSaveFileName(
+        this,
+        "Guardar inventario",
+        "inventario.csv",
+        "Archivos CSV (*.csv)"
+    );
+
+    if (rutaArchivo.isEmpty())
+        return;
+
+    QFile archivo(rutaArchivo);
+
+    if (!archivo.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QMessageBox::warning(this, "Error", "No se pudo crear el archivo CSV.");
+        return;
+    }
+
+    QTextStream salida(&archivo);
+
+    salida << "ID,Nombre,Categoria,Cantidad,Ubicacion,Valor,Proveedor,Stock minimo\n";
+
+    for (int fila = 0; fila < ui->tableWidget->rowCount(); fila++)
+    {
+        if (ui->tableWidget->isRowHidden(fila))
+            continue;
+
+        QStringList datosFila;
+
+        for (int columna = 0; columna < ui->tableWidget->columnCount(); columna++)
+        {
+            QTableWidgetItem *item = ui->tableWidget->item(fila, columna);
+
+            if (item)
+                datosFila << item->text();
+            else
+                datosFila << "";
+        }
+
+        salida << datosFila.join(",") << "\n";
+    }
+
+    archivo.close();
+
+    QMessageBox::information(this, "Exportación exitosa", "El inventario fue exportado correctamente.");
 }

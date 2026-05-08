@@ -361,6 +361,19 @@ font-weight: bold;</string>
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnExportarCSV">
+    <property name="geometry">
+     <rect>
+      <x>669</x>
+      <y>520</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exportar CSV</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
