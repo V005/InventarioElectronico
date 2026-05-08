@@ -18,8 +18,11 @@ public:
     bool conectar();
     bool crearTablaComponentes();
     bool insertarComponente(const Componente &componente);
-
     QList<Componente> obtenerComponentes();
+
+    void eliminarComponente(int id);
+
+    void actualizarComponente(const Componente &c);
 };
 
 #endif // DATABASEMANAGER_H

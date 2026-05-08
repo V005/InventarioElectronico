@@ -94,3 +94,40 @@ QList<Componente> DatabaseManager::obtenerComponentes()
     qDebug() << "Componentes leídos:" << lista.size();
     return lista;
 }
+void DatabaseManager::eliminarComponente(int id)
+{
+    QSqlQuery query;
+
+    query.prepare("DELETE FROM componentes WHERE id = :id");
+
+    query.bindValue(":id", id);
+
+    query.exec();
+}
+
+void DatabaseManager::actualizarComponente(const Componente &c)
+{
+    QSqlQuery query;
+
+    query.prepare("UPDATE componentes SET "
+                  "nombre = :nombre, "
+                  "categoria = :categoria, "
+                  "cantidad = :cantidad, "
+                  "ubicacion = :ubicacion, "
+                  "valor = :valor, "
+                  "proveedor = :proveedor, "
+                  "stock_minimo = :stock_minimo "
+                  "WHERE id = :id");
+
+    query.bindValue(":nombre", c.getNombre());
+    query.bindValue(":categoria", c.getCategoria());
+    query.bindValue(":cantidad", c.getCantidad());
+    query.bindValue(":ubicacion", c.getUbicacion());
+    query.bindValue(":valor", c.getValor());
+    query.bindValue(":proveedor", c.getProveedor());
+    query.bindValue(":stock_minimo", c.getStockMinimo());
+    query.bindValue(":id", c.getId());
+
+    query.exec();
+}
+

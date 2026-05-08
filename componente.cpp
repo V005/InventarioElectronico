@@ -48,3 +48,5 @@ bool Componente::tieneStockBajo() const
 {
     return cantidad <= stockMinimo;
 }
+
+
